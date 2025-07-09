@@ -1,8 +1,7 @@
-
+import json
 
 def save_message(Status: dict):
-    with open('msg_data.txt', 'r') as file:
-        #change keys
-        file.write(str(Status["T"] + " "))
-        file.write(str(Status["P"] + " "))
-        file.write(str(Status["F"] + " "))
+    with open('msg_data.txt', 'a', encoding='utf-8') as file:
+        file.write('\n')
+        file.write(Status)
+        #json.dump(Status, ensure_ascii=True, indent=4, fp=file)

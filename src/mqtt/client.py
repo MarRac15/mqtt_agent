@@ -1,14 +1,12 @@
 from paho.mqtt import client as mqtt_client
 from utils.saving_messages import save_message
+from utils.translator import convert_message
 import json
 
 #creates mqtt client
 def connect_mqtt(config):
 
-    Status = {}
-
-    def on_connect(client, userdata, flags, reason_code):    
-        #client.subscribe('#')   
+    def on_connect(client, userdata, flags, reason_code):     
         if reason_code == 0:
             print("Connected to MQTT Broker!")
             client.subscribe(config["topic"])
@@ -17,14 +15,16 @@ def connect_mqtt(config):
             
 
     def on_message(client, userdata, msg):
-
-        print(msg.topic+" "+str(msg.payload))
         msg_dict = json.loads((msg.payload))
-        Status.update(msg_dict)
-        #saves messages to a file:
-        #save_message(Status)
-        #WIP
-        #...translation here...
+        print(msg_dict)
+        message_content = msg_dict['uplink_message']['decoded_payload']['bytes']
+        print(message_content)
+        
+        clean_message = message_content.replace('\\', '')
+        #translation to kafka format:
+        convert_message(clean_message)
+        #saves messages to a json file:
+        save_message(clean_message)
 
     client = mqtt_client.Client()
     client.username_pw_set(config["user"], config["password"])

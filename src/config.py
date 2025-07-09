@@ -12,5 +12,9 @@ def load_config():
         "password": os.getenv("API_KEY")
         #"client_id": os.getenv("MQTT_CLIENT_ID")
     }
+    kafka_config = {
+        "bootstrap_server": os.getenv("KAFKA_BOOTSTRAP_SERVER"),
+        "topic": os.getenv("KAFKA_TOPIC")
+    }
 
-    return {"mqtt": mqtt_config}
+    return {"mqtt": mqtt_config, "kafka": kafka_config}
