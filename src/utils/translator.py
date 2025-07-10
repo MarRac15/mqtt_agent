@@ -2,7 +2,7 @@ import json
 import ast
 #translates model data from TTS to kafka
 
-def convert_message(mqtt_message):
+def convert_message(mqtt_message: str):
     mqtt_message = ast.literal_eval(mqtt_message)
     old_message = mqtt_message.copy()
     old_message.pop("ID")
