@@ -14,6 +14,7 @@ def connect_mqtt(config):
         if reason_code == 0:
             print("Connected to MQTT Broker!")
             client.subscribe("#")
+            #print(mqtt_config["topic"])
         else:
             print("Failed to connect, return code %d\n", reason_code)
             
