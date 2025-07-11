@@ -6,15 +6,19 @@ import json
 
 
 def send_message(producer, message, topic):
-    producer.send(topic=topic, value=message).add_errback(on_send_error)
+    producer.send(topic=topic, value=message) #.add_errback(on_send_error)
 
 def on_send_error():
-    #if cannot send a message then store it somewhere
-    pass
-
+    print(f"Failed to send a message")
+    # if the connection to kafka failed then read the last message from msg_data.txt
+    # and resend it
+    with open('msg_data.txt', 'r', encoding='utf-8') as file:
+         for line in file:
+              pass
+         last_message = line
+    return last_message
 
 def create_producer(kafka_config):
-    #kafka_config = config["kafka"]
 
     #just for development:
     context = ssl.create_default_context()
@@ -31,15 +35,7 @@ def create_producer(kafka_config):
     return producer
 
 def send_to_kafka(producer, message, config):
-        #kafka_config = config["kafka"]
         send_message(producer, message, config["topic"].strip())
         print(f"Sent {message}")
         producer.flush()
 
-
-#test
-# config = load_config()
-# kafka_config = config["kafka"]
-# producer = create_producer(kafka_config)
-# producer.send(kafka_config["topic"].strip(), {'PCSS1': ['2025-07-10T12:30:12Z', 0.0]})
-# producer.flush()
