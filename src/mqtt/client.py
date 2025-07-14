@@ -39,8 +39,11 @@ def connect_mqtt():
         if kafka_message:
             #saves messages to a json file:
             save_message(str(kafka_message))
-            #send to kafka:
-            send_to_kafka(kafka_producer, kafka_message)
+            #send it to kafka:
+            if kafka_producer:
+                send_to_kafka(kafka_producer, kafka_message)
+            else:
+                print("Kafka producer won't be created, please check you /certs directory")
         else:
             print("Received an empty message!")
 
@@ -50,7 +53,7 @@ def connect_mqtt():
     client.username_pw_set(USER, API_KEY)
     client.on_connect = on_connect
     client.on_message = on_message
-    client.connect(MQTT_BROKER, MQTT_PORT, keepalive=60)
+    client.connect(MQTT_BROKER, MQTT_PORT, keepalive=600)
     
 
     return client

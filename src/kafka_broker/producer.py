@@ -17,8 +17,6 @@ KAFKA_TOPIC = os.getenv("KAFKA_TOPIC")
 CERT_LOCATION = str(Path(CERT_LOCATION).resolve())
 KEY_LOCATION = str(Path(KEY_LOCATION).resolve())
 
-def send_message(producer, message, topic):
-    producer.send(topic=topic, value=message)
 
 def on_send_error():
     print(f"Failed to send a message")
@@ -31,10 +29,12 @@ def on_send_error():
     return last_message
 
 def create_producer():
+    if not os.path.exists(CERT_LOCATION) or not os.path.exists(KEY_LOCATION):
+         print("Certificate or key file don't exist, check your path.")
+         return None
+    
     #without CA!
     context = ssl.create_default_context()
-    print(f"[DEBUG] CERT_LOCATION={CERT_LOCATION} (Exists: {os.path.exists(CERT_LOCATION)})")
-    print(f"[DEBUG] KEY_LOCATION={KEY_LOCATION} (Exists: {os.path.exists(KEY_LOCATION)})")
     context.load_cert_chain(certfile=CERT_LOCATION, keyfile=KEY_LOCATION)
     context.check_hostname = False
     context.verify_mode = ssl.CERT_NONE
@@ -42,15 +42,16 @@ def create_producer():
     producer = KafkaProducer(
         bootstrap_servers = KAFKA_BOOTSTRAP_SERVER,
         value_serializer=lambda v: json.dumps(v).encode("utf-8"),
+        key_serializer=lambda k: k.encode('utf-8') if k else None,
         security_protocol='SSL',
         ssl_context=context
         )
     return producer
 
 def send_to_kafka(producer, message):
-        load_dotenv()
-        KAFKA_TOPIC = os.getenv("KAFKA_TOPIC")
-        send_message(producer, message, KAFKA_TOPIC)
+        kafka_key = message.get("ID")
+        producer.send(topic=KAFKA_TOPIC, key=kafka_key, value=message)
         print(f"Sent {message}")
+        print(f"Set key to {kafka_key}")
         producer.flush()
 
