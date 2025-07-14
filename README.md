@@ -13,7 +13,7 @@ What does the agent do:
 
 This agent is built in Python and uses paho-mqtt and python-kafka libraries. All the used packages are listed in the requirements.txt file.
 
-## Setup
+## Local setup
 Ensure your terminal working directory is in your project folder.
 1. Create Python virtual environment using venv:
    ```bash
@@ -39,20 +39,20 @@ Ensure your terminal working directory is in your project folder.
 5. Create a `.env` file in the root directory of your project and add the following environment variables:
    ```bash
     
-    MQTT_BROKER = "<mqtt_broker_url>"
-    MQTT_PORT = "<port>>"
-    MQTT_TOPIC = "<topic>"
-    USER = "<username>"
-    API_KEY = "<api_key>"
+    MQTT_BROKER = <mqtt_broker_url>
+    MQTT_PORT = <port>
+    MQTT_TOPIC = <topic>
+    USER = <username>
+    API_KEY = <api_key>
 
-    KAFKA_TOPIC = "<kafka_topic>"
-    KAFKA_BOOTSTRAP_SERVER ="<kafka_url>"
+    KAFKA_TOPIC = <kafka_topic>
+    KAFKA_BOOTSTRAP_SERVER = <kafka_url>
 
     #FOR SSL:
-    CERT_LOCATION = "<path_to_cert.pem>"
-    CA_ROOT_LOCATION = "<path_to_ca.pem>"
-    KEY_LOCATION ="<path_to_key.pem>"
-    SSL_PASSWORD = "<secret_ssl_password>"
+    CERT_LOCATION = <path_to_cert.pem>
+    CA_ROOT_LOCATION = <path_to_ca.pem>
+    KEY_LOCATION = <path_to_key.pem>
+    SSL_PASSWORD = <secret_ssl_password>
    ```
    
     Warning: be careful to check if your environment variables names look exactly like this. 
@@ -65,4 +65,6 @@ Ensure your terminal working directory is in your project folder.
     ```
     Connected to MQTT Broker!
     ```
+
+## Docker setup (deployment):
     
