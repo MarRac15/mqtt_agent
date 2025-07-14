@@ -67,4 +67,24 @@ Ensure your terminal working directory is in your project folder.
     ```
 
 ## Docker setup (deployment):
+
+**Make sure you are in the root directory of the project!**
+
+There are 2 ways of running the container:
     
+1. Through docker compose (I added docker-compose.yaml file). Just execute this one command:
+    ```
+    docker-compose up
+    ```
+
+2. Alternatively, you can run the following commands:
+
+    ```
+    docker build -t mqtt-agent .
+    ```
+    ```
+    docker run \
+    --env-file .env \
+    -v $(pwd)/certs:/app/certs:ro \
+    mqtt-agent
+    ```
