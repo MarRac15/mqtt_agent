@@ -1,10 +1,9 @@
-from config import load_config
 from mqtt.client import connect_mqtt
 
 
 def main():
-    config = load_config()
-    client = connect_mqtt(config)
+    print("App is running")
+    client = connect_mqtt()
     client.loop_forever()
    
 
