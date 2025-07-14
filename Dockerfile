@@ -4,8 +4,6 @@ WORKDIR /app
 
 COPY ./src /app
 
-COPY ./certs /app/certs
-
 COPY requirements.txt .
 
 RUN pip install --upgrade pip \

@@ -1,0 +1,11 @@
+services:
+  mqtt-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mqtt-agent
+    env_file:
+      - .env
+    volumes:
+      - ./certs:/app/certs:ro
+    restart: unless-stopped
