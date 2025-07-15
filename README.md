@@ -50,7 +50,6 @@ Ensure your terminal working directory is in your project folder.
 
     #FOR SSL:
     CERT_LOCATION = <path_to_cert.pem>
-    CA_ROOT_LOCATION = <path_to_ca.pem>
     KEY_LOCATION = <path_to_key.pem>
     SSL_PASSWORD = <secret_ssl_password>
    ```
@@ -70,7 +69,7 @@ Ensure your terminal working directory is in your project folder.
 
 ## Docker setup (deployment):
 
-**Make sure you are in the root directory of the project!**
+**Make sure you are in the root directory of the project (not in the src folder!)**
 
 There are 2 ways of running the container:
     
