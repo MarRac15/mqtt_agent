@@ -1,7 +1,10 @@
 #kafka prodcuer
+from utils.saving_messages import save_message
 from kafka import KafkaProducer
+from kafka.errors import KafkaError
 from dotenv import load_dotenv
 from pathlib import Path
+import time
 import os
 import ssl
 import json
@@ -17,16 +20,6 @@ KAFKA_TOPIC = os.getenv("KAFKA_TOPIC")
 CERT_LOCATION = str(Path(CERT_LOCATION).resolve())
 KEY_LOCATION = str(Path(KEY_LOCATION).resolve())
 
-
-def on_send_error():
-    print(f"Failed to send a message")
-    # if the connection to kafka failed then read the last message from msg_data.txt
-    # and resend it
-    with open('msg_data.txt', 'r', encoding='utf-8') as file:
-         for line in file:
-              pass
-         last_message = line
-    return last_message
 
 def create_producer():
     if not os.path.exists(CERT_LOCATION) or not os.path.exists(KEY_LOCATION):
@@ -48,10 +41,38 @@ def create_producer():
         )
     return producer
 
-def send_to_kafka(producer, message):
-        kafka_key = message.get("ID")
-        producer.send(topic=KAFKA_TOPIC, key=kafka_key, value=message)
-        print(f"Sent {message}")
-        print(f"Set key to {kafka_key}")
-        producer.flush()
 
+
+def send_to_kafka(producer, message, retries=3, delay=2):
+        attempts = 0
+        while attempts < retries:
+            try:
+                kafka_key = message.get("ID")
+                producer.send(topic=KAFKA_TOPIC, key=kafka_key, value=message)
+                print(f"Sent {message}")
+                print(f"Set key to {kafka_key}")
+                producer.flush()
+                return
+            except KafkaError as e:
+                print(f"Error while sending the message (attempt {attempts+1}/{retries}): {e}")
+                attempts+=1
+                time.sleep(delay)
+        #save the message and retry at the start of the program
+        print("All attempts to send a message failed")
+        save_message(str(message), 'failed_messages.txt')
+
+# if the connection with kafka failed:
+def resend_failed_messages(producer):
+    if not os.path.exists('failed_messages.txt'):
+        return
+    try:
+        with open('failed_messages.txt', 'r', encoding='utf-8') as file:
+            last_message = file.read().strip()
+            if not last_message:
+                return
+            print("Retrying to send failed message...")
+            send_to_kafka(producer, last_message)
+            open('failed_messages', 'w').close()
+            #os.remove('failed_messages.txt')
+    except Exception as e:
+        print(f"Error while retrying to send failed message: {e}")

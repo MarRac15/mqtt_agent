@@ -3,7 +3,7 @@ import os
 from dotenv import load_dotenv
 from utils.saving_messages import save_message
 from utils.translator import convert_message
-from kafka_broker.producer import create_producer, send_to_kafka
+from kafka_broker.producer import create_producer, send_to_kafka, resend_failed_messages
 import json
 
 
@@ -37,8 +37,8 @@ def connect_mqtt():
         #translation to kafka format:
         kafka_message = convert_message(clean_message)
         if kafka_message:
-            #saves messages to a json file:
-            save_message(str(kafka_message))
+            #saves messages to a file:
+            save_message(str(kafka_message), 'msg_data.txt')
             #send it to kafka:
             if kafka_producer:
                 send_to_kafka(kafka_producer, kafka_message)
@@ -50,6 +50,7 @@ def connect_mqtt():
 
     client = mqtt_client.Client()
     kafka_producer = create_producer()
+    resend_failed_messages(kafka_producer)
     client.username_pw_set(USER, API_KEY)
     client.on_connect = on_connect
     client.on_message = on_message
