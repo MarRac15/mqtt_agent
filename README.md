@@ -56,7 +56,7 @@ Ensure your terminal working directory is in your project folder.
    
     Warning: be careful to check if your environment variables names look exactly like this.
 
-6. If you're using SSL for connection with Kafka (as I am), then create /cert folder in the root directory of the project and add there your cert.pem and key.pem files.
+6. **If you're using SSL for connection with Kafka** (as I am), then create /certs folder in the root directory of the project and add there your cert.pem and key.pem files.
 
 
 7. Compile main.py file in order to start the agent. 
