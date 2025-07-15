@@ -55,10 +55,12 @@ Ensure your terminal working directory is in your project folder.
     SSL_PASSWORD = <secret_ssl_password>
    ```
    
-    Warning: be careful to check if your environment variables names look exactly like this. 
+    Warning: be careful to check if your environment variables names look exactly like this.
+
+6. If you're using SSL for connection with Kafka (as I am), then create /cert folder in the root directory of the project and add there your cert.pem and key.pem files.
 
 
-6. Compile main.py file in order to start the agent. 
+7. Compile main.py file in order to start the agent. 
 
     If the setup and connection were successfull, you'll see the following communicate in your terminal:
     
@@ -72,13 +74,7 @@ Ensure your terminal working directory is in your project folder.
 
 There are 2 ways of running the container:
     
-1. Through docker compose (I added docker-compose.yaml file). Just execute this one command:
-    ```
-    docker-compose up
-    ```
-
-2. Alternatively, you can run the following commands:
-
+1. Run the following commands:
     ```
     docker build -t mqtt-agent .
     ```
@@ -88,3 +84,9 @@ There are 2 ways of running the container:
     -v $(pwd)/certs:/app/certs:ro \
     mqtt-agent
     ```
+
+3. Alternatively, use docker compose (I added docker-compose.yaml file). Just execute this one command:
+    ```
+    docker-compose up
+    ```
+
