@@ -4,7 +4,9 @@ from dotenv import load_dotenv
 from utils.saving_messages import save_message
 from utils.translator import convert_message
 from kafka_broker.producer import create_producer, send_to_kafka, resend_failed_messages
+from utils.validator import is_valid_message
 import json
+import ast
 
 
 load_dotenv(override=True)
@@ -28,14 +30,20 @@ def connect_mqtt():
             
 
     def on_message(client, userdata, message):
+        
         print("Message received!")
         msg_dict = json.loads((message.payload))
         message_content = msg_dict['uplink_message']['decoded_payload']['bytes']
-        print(message_content)
-        
+        print(message_content)   
         clean_message = message_content.replace('\\', '')
-        #translation to kafka format:
-        kafka_message = convert_message(clean_message)
+        
+        # check if the format follows our data model guidelines:
+        if is_valid_message(clean_message):
+            kafka_message = convert_message(clean_message)
+        else:
+            save_message(str(clean_message), 'unknown_messages.txt')
+            return
+
         if kafka_message:
             #saves messages to a file:
             save_message(str(kafka_message), 'msg_data.txt')
