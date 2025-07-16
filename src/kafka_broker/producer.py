@@ -61,7 +61,9 @@ def send_to_kafka(producer, message, retries=3, delay=2):
         print("All attempts to send a message failed")
         save_message(str(message), 'failed_messages.txt')
 
-# if the connection with kafka failed:
+
+
+# resend the messages if the connection with kafka failed:
 def resend_failed_messages(producer):
     if not os.path.exists('failed_messages.txt'):
         return
