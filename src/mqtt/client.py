@@ -31,7 +31,7 @@ def connect_mqtt():
 
     def on_message(client, userdata, message):
         
-        print("Message received!")
+        print("\nMessage received!")
         msg_dict = json.loads((message.payload))
         message_content = msg_dict['uplink_message']['decoded_payload']['bytes']
         print(message_content)   

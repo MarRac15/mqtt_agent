@@ -47,7 +47,7 @@ def send_to_kafka(producer, message, retries=3, delay=2):
         attempts = 0
         while attempts < retries:
             try:
-                kafka_key = message.get("ID")
+                kafka_key = message.get("internalId")
                 producer.send(topic=KAFKA_TOPIC, key=kafka_key, value=message)
                 print(f"Sent {message}")
                 print(f"Set key to {kafka_key}")
@@ -75,6 +75,5 @@ def resend_failed_messages(producer):
             print("Retrying to send failed message...")
             send_to_kafka(producer, last_message)
             open('failed_messages', 'w').close()
-            #os.remove('failed_messages.txt')
     except Exception as e:
         print(f"Error while retrying to send failed message: {e}")
