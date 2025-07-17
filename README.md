@@ -68,6 +68,9 @@ Ensure your terminal working directory is in your project folder.
     ```
 
 ## Docker setup (deployment):
+Create an .env file (just as described above) and add it to the root directory.
+
+Similarly, create /certs folder in the root directory and place there your key.pem and cert.pem files.
 
 **Make sure you are in the root directory of the project (not in the src folder!)**
 
