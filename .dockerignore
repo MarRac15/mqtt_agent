@@ -1,0 +1,15 @@
+.env
+*.pem
+*.crt
+*.key
+certs/
+
+__pycache__/
+*.pyc
+*.pyo
+
+.git/
+.gitignore
+
+tests/
+*.test.*
