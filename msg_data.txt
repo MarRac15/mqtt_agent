@@ -1,17 +1,1 @@
-
-{'ID': 'PCSS1', 'T': '2025-07-09T10:51:04Z', 'F': 0.0}{'ID': 'PCSS1', 'T': '2025-07-09T10:51:04Z', 'F': 0.0}
-{'ID': 'PCSS1', 'T': '2025-07-09T10:51:04Z', 'F': 0.0}
-{'ID': 'PCSS1', 'T': '2025-07-09T10:51:04Z', 'F': 0.0}
-{'ID': 'PCSS1', 'T': 20.0, 'P1': 0.0}
-{'ID': 'PCSS1', 'T': 20.0, 'P1': 0.01}
-{'ID': 'PCSS1', 'T': 20.0, 'P1': 0.01}
-{'ID': 'PCSS1', 'T': 20.0, 'P1': 0.01}
-{'ID': 'PCSS1', 'T': 20.0, 'P1': 0.01}
-{'ID': 'PCSS1', 'T': 20.0, 'P1': 0.01}
-{'ID': 'PCSS1', 'T': 20.0, 'P1': 0.01, 'O': 'PCSS'}
-{'T': 20.0, 'P1': 0.01, 'O': 'PCSS'}
-{'internalId': 'PCSS1', 'measurementDate': '2025-07-17T12:51:04Z', 'airTemperature': 20.0, 'precipitationRaw1': 0.01, 'leafWetness': 0.1}
-{'internalId': 'PCSS1', 'measurementDate': '2025-07-17T12:51:04Z', 'airTemperature': 20.0, 'precipitationRaw1': 0.01, 'leafWetness': 0.1}
-{'internalId': 'PCSS1', 'measurementDate': '2025-07-17T12:51:04Z', 'airTemperature': 20.0, 'precipitationRaw1': 0.01, 'leafWetness': 0.1}
-{'internalId': 'PCSS1', 'measurementDate': '2025-07-17T12:51:04Z', 'airTemperature': 20.0, 'precipitationRaw1': 0.01, 'leafWetness': 0.1}
 {'internalId': 'PCSS1', 'measurementDate': '2025-07-17T12:51:04Z', 'airTemperature': 20.0, 'precipitationRaw1': 0.01, 'leafWetness': 0.1}
