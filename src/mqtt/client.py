@@ -62,7 +62,7 @@ def connect_mqtt():
     client.username_pw_set(USER, API_KEY)
     client.on_connect = on_connect
     client.on_message = on_message
-    client.connect(MQTT_BROKER, MQTT_PORT, keepalive=600)
+    client.connect(MQTT_BROKER, MQTT_PORT)
     
 
     return client
