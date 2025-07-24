@@ -10,6 +10,9 @@ def convert_message(mqtt_message: str):
             return None
         
         mqtt_message = ast.literal_eval(mqtt_message)
+
+        # set owner to PCSS on default:
+        mqtt_message.update({'O': 'PCSS'})
         
         mapped_message = {
             FIELD_ALIASES[key]: value for key, value in mqtt_message.items() if key in FIELD_ALIASES

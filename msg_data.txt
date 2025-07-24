@@ -1,1 +1,1 @@
-{'internalId': 'PCSS1', 'measurementDate': '2025-07-17T12:51:04Z', 'airTemperature': 20.0, 'precipitationRaw1': 0.01, 'leafWetness': 0.1}
+

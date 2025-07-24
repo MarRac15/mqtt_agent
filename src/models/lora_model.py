@@ -1,7 +1,7 @@
 
 # to validate the incoming messages:
 VALID_LABELS = {
-    "MD", "ID", "DS", 
+    "MD", "ID", "DS", "O", "T", "F", #T i F tymczasowo (time i fall)
     "AT", "H", "I", "WS", "WD", "AP", "P", "P1", "P2", "D", "L",  
     "SM1", "SM2", "SM3", "SM4", "SM5", "SM6",      
     "TD05", "TD1", "TD2", "TD5", "TD10", "TH0", "TH05"  
@@ -20,6 +20,10 @@ FIELD_ALIASES = {
     "MD": "measurementDate",
     "O": "owner",
     "ID": "internalId",
+
+    #temporary:
+    "T": "measurementDate",
+    "F": "precipitation",
 
     "DS": "dataSourceStoreDate",
     "AT": "airTemperature",
